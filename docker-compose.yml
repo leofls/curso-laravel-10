@@ -26,6 +26,20 @@ services:
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
             - laravel
+    # aplicação PHPMyAdmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: unless-stopped
+        networks:
+        - laravel
+        ports:
+        - 8077:80
+        environment:
+        # - PMA_ARBITRARY=1
+        - PMA_HOST=db
+        - UPLOAD_LIMIT=300M
+        depends_on:
+        - db
 
     # db mysql
     db:
